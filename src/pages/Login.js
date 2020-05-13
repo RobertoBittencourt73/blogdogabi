@@ -56,7 +56,7 @@ class Login extends Component{
                         value={this.state.senha} onChange={(e) => this.setState({senha: e.target.value})}/><br/>
 
                         <button type='submir'>Entrar</button>
-                        <Link to='/registro'>Cadastrar Um Novo Usuário</Link>
+                        
                     </form>
                     
              </div>

@@ -27,7 +27,7 @@ class Routes extends Component{
                           <Route exact path='/login' component={ Login } />
                           <Route exact path='/registro' component={ Registro } />
                           <Route exact path='/painel' component={ Painel } />
-                          <Route exact path='/newpainel' component={ NewPainel } />
+                          <Route exact path='/painel/newpainel' component={ NewPainel } />
                       </Switch>
                  </BrowserRouter>
 

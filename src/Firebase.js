@@ -2,6 +2,7 @@ import app from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 
+
 let firebaseConfig = {
     apiKey: "AIzaSyDPlGeFDmQN4W60tLSb6qc6sfqyQV7X3sw",
     authDomain: "blog-do-gabi-fbb01.firebaseapp.com",
@@ -25,6 +26,11 @@ class Firebase{
 Login(email, senha){
     return app.auth().signInWithEmailAndPassword(email, senha)
 }
+
+//===================== metodo para deslogar ==========================================
+    Logout(){
+        return app.auth().signOut()
+    }     
 
 //===================== Metodo de Cadastro ============================================
 
@@ -52,6 +58,18 @@ getCurrent(){
    return app.auth().currentUser && app.auth().currentUser.email
 }
 
+
+
+//================= Metodo para buscar o nome no banco de dados ========================
+
+async getName(callback){
+    if(!app.auth().currentUser){
+        return null
+    }
+     
+    const uid = app.auth().currentUser.uid
+    await app.database().ref('usuarios').child(uid).once('value').then(callback)
 }
 
+}
 export default new Firebase()

@@ -13,19 +13,17 @@ class Registro extends Component{
         }
         this.salvar = this.salvar.bind(this)
     }
-    salvar = async (e) => {
+    salvar(){
         try{
-            const {nome, email, senha} = this.state
-           
-            firebase.Cadastrar(nome, email, senha)
+            const{nome, email, senha} = this.state
+            firebase.Cadastrar(nome,email,senha)
             this.props.history.replace('/painel')
 
         }catch(error){
             alert(error.message)
         }
-        e.preventDefault()
-
     }
+  
     render(){
         return(
             <div id='form-registro'>
