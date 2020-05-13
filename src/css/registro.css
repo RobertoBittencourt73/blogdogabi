@@ -1,0 +1,25 @@
+#form-registro{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+    height: auto;
+}
+#form{
+    width: 100%;
+    max-width: 680px;
+    height: 430px;
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+#form label{
+    text-align: left;
+}
+#form > input{
+    margin-bottom: 15px;
+    height: 40px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 15px;
+}

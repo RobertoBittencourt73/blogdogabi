@@ -1,0 +1,27 @@
+.main-header{
+    width: 100%;
+    height: 70px;
+    background: brown;
+}
+.main-header header{
+    width: 100%;
+    max-width: 930px;
+    height: 70px;
+    background: brown;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-header header a{
+      color: white;
+      text-decoration: none;
+      font-size: 120%;
+
+}
+.main-header header a:hover{
+    text-decoration: underline;
+    font-style: italic;
+
+}

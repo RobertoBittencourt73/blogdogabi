@@ -1,0 +1,23 @@
+section{
+    width: 100%;
+    max-width: 680px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+section h1{
+    font-size: 250%;
+    font-weight: bold;
+}
+section img{
+    width: 50%;
+}
+
+section p{
+    margin-top: 10px;
+    text-indent: 5%;
+    text-align: justify;
+}
