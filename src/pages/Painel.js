@@ -35,7 +35,7 @@ class Painel extends Component{
              <div id="main-painel">
                    <header>
                       <h3>Bem vindo: {this.state.nome}</h3> 
-                      <h4>Logado por: roberto@teste.com</h4>
+                      <h5>Logado por: {firebase.getCurrent()} </h5>
                    </header>
                     <section>
                         <Link to='/painel/newpainel'>Novo Post</Link>

@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Registro from './pages/Registro'
 import Painel from './pages/Painel'
 import NewPainel from './pages/NewPainel'
+import Erro	 from './pages/Erro'
 
 class Routes extends Component{
     constructor(props){
@@ -28,6 +29,7 @@ class Routes extends Component{
                           <Route exact path='/registro' component={ Registro } />
                           <Route exact path='/painel' component={ Painel } />
                           <Route exact path='/painel/newpainel' component={ NewPainel } />
+                          <Route  path='*' component={ Erro } />
                       </Switch>
                  </BrowserRouter>
 
