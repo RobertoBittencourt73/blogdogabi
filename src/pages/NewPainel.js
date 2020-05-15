@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from '../Firebase'
 import { withRouter} from 'react-router-dom'
+import { Editor } from '@tinymce/tinymce-react'
 import '../css/new.css'
 
 class NewPainel extends Component{
@@ -15,6 +16,7 @@ class NewPainel extends Component{
               alert: ''
         }
         this.salvar = this.salvar.bind(this)
+        
     }
     componentDidMount(){
         if(!firebase.getCurrent()){
@@ -39,9 +41,11 @@ class NewPainel extends Component{
        }
        
     }
+   
+   
     render(){
         return(
-             <div>
+             <div id='main-container'>
                  <form onSubmit={this.salvar} id='newForm'>
                      <span>{this.state.alert}</span>
                      <label htmlFor='image'>Imagem</label>
@@ -53,15 +57,32 @@ class NewPainel extends Component{
                      <input type='text' id='titulo' placeholder='Título do Post'
                        value={this.state.titulo} onChange={(e)=> this.setState({titulo: e.target.value})}/>
 
-                     <label htmlFor='descricao'>Descrição</label>
-                     <textarea type='text' id='descricao' placeholder='Conteúdo do Post'
-                       value={this.state.descricao} onChange={(e)=> this.setState({descricao: e.target.value})}/> 
-
+                     <div className='main-edit'>
+                        <label  >Descrição do Post</label>
+                        < Editor initialValue = "<p>Descrição do Post</p>"
+                            apiKey="s59yj03jzpitx6opcqosvi2hfhbb46tguq9zogwe2e3wvxfx"
+                            init = {{                           
+                                    height : 200 ,                             
+                                    menubar : false , 
+                                    plugins : [ 'advlist autolink lists link image charmap print preview anchor' , 
+                                    'searchreplace visualblocks code fullscreen' , 
+                                    'insertdatetime media table paste code help wordcount' ], 
+                                    toolbar : 'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+                                }}
+                            value={this.state.descricao}
+                            onEditorChange ={(e) => this.setState({descricao: e.target.getContent()}) }
+                           
+                        /> 
+                     </div>
+                      
                      <label htmlFor='autor'>Autor</label>
                      <input type='text' id='autor' placeholder='Autor do Post' 
                        value={this.state.autor} onChange={(e)=> this.setState({autor: e.target.value})}/>  
-
-                     <button type='submit'>Salvar</button>   
+                     
+                     <div id="btn">
+                          <button className='btns' type='submit'>Salvar</button> 
+                          <button className='btns' type=''>Voltar</button>   
+                     </div>
                  </form>
              </div>
         )

@@ -1,37 +1,35 @@
-#newForm{
+#main-container{
     width: 100%;
-    max-width: 680px;
+    max-width: 930px;
     height: 500px;
-    margin: 20px auto;
+    margin: 10px auto;
+    border: 1px solid;
     display: flex;
     flex-direction: column;
-    text-align: center;
-    justify-content: center;
-
+    align-items: center;
+    
 }
-#newForm label{
-    text-align: left;
+#newForm{
+    width: 100%;
+    max-width: 930px;
+    height: 500px;
 }
 #newForm input{
     margin-top: 5px;
-    padding-left: 2%;
-    font-size: 15px;
+    height: 30px;
 }
-#newForm textarea{
+#newForm .main-edit{
     width: 90%;
-    margin-left: 5%;
-    margin-top: 5px;
-    padding-left: 2%;
-    font-size: 15px;
-    height: 100px;
-    border-radius: 5px;
+    margin: 5px auto;
 }
-#newForm button{
-    width: 50%;
-    margin-left: 25%;
+#newForm .main-edit label{
+    margin-left: 0;
 }
-#newForm > span{
-    text-align: center;
-    color: white;
-    font-size: 15px;
+#btn{
+    width: 100%;
+    align-items: center;
+}
+#btn .btns{
+    width: 30%;
+    margin-left: 13%;
 }
