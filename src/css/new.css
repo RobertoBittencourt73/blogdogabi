@@ -1,18 +1,19 @@
 #main-container{
     width: 100%;
     max-width: 930px;
-    height: 500px;
+    height: auto;
     margin: 10px auto;
-    border: 1px solid;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 10px;
     
 }
 #newForm{
     width: 100%;
     max-width: 930px;
-    height: 500px;
+    height: auto;
+    padding-bottom: 10px;
 }
 #newForm input{
     margin-top: 5px;
@@ -27,9 +28,37 @@
 }
 #btn{
     width: 100%;
-    align-items: center;
+    height: 30px;
+    line-height: 30px;
+   
 }
 #btn .btns{
     width: 30%;
+    height: 30px;
+    line-height: 30px;
     margin-left: 13%;
+    font-size: 15px;
+    padding: 0;
 }
+.imagem{
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 2.5%;
+}
+#main-container  img{
+    width: 15%;
+    position: absolute;
+   margin-left: 70%;
+   margin-top: 5px;
+}
+#main-container progress{
+    width: 35%;
+    height: 25px;
+    margin-left: 5%;
+    margin-top: -10px;
+    background: black;
+}
+
+
+

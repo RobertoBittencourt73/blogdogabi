@@ -1,6 +1,7 @@
 import app from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
+import 'firebase/storage'
 
 
 let firebaseConfig = {
@@ -19,6 +20,7 @@ class Firebase{
     constructor(){
          app.initializeApp(firebaseConfig);
         this.app = app.database
+        this.storage = app.storage()
     }
 
 //===================== metodo de Login ===============================================
@@ -69,6 +71,11 @@ async getName(callback){
      
     const uid = app.auth().currentUser.uid
     await app.database().ref('usuarios').child(uid).once('value').then(callback)
+}
+//================== Metodo para buscar o uid do usuario ================================
+
+getUser(){
+    return app.auth().currentUser && app.auth().currentUser.uid
 }
 
 }

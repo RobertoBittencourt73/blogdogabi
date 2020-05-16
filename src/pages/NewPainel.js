@@ -9,13 +9,17 @@ class NewPainel extends Component{
         super(props)
         this.state = {
               titulo: '',
-              image: '',
+              image: null,
               url: '',
               descricao: '',
               autor: '',
-              alert: ''
+              alert: '',
+             progress: '0'
         }
         this.salvar = this.salvar.bind(this)
+        this.handleEditorChange = this.handleEditorChange.bind(this)
+        this.newFile = this.newFile.bind(this)
+        this.carregarFile = this.carregarFile.bind(this)
         
     }
     componentDidMount(){
@@ -26,12 +30,13 @@ class NewPainel extends Component{
     }
     salvar(e){
        e.preventDefault()
-       if(this.state.titulo !== '' && this.state.image !== '' && this.state.descricao !== '' && this.state.autor !== ''){
+       if(this.state.titulo !== '' && this.state.descricao !== '' &&
+        this.state.autor !== '' && this.state.image !== null && this.state.url !== '' ){
            let posts = firebase.app().ref('posts')
            let chaves = posts.push().key
             posts.child(chaves).set({
                titulo: this.state.titulo,
-               image: this.state.image,
+               image: this.state.url,
                descricao: this.state.descricao,
                autor: this.state.autor,
            })
@@ -41,26 +46,78 @@ class NewPainel extends Component{
        }
        
     }
-   
+    handleEditorChange = async ( content ) => {
+        console.log ( 'Content was updated:' , content )
+       await this.setState({descricao: content})
+   }
+   newFile = async (e) =>{
+       if(e.target.files[0]){     
+        const image = e.target.files[0]
+
+         if(image.type === 'image/png' || image.type === 'image/jpeg'){
+            await this.setState({image})
+            this.carregarFile()
+         }else{
+             this.setState({alert: 'Selecione uma imagem no formato PNG ou JPG'})
+             this.setState({image: null})
+             return null
+         }
+        }
+   }  
+   carregarFile = async () =>{
+       const {image} = this.state
+       const uid = firebase.getUser()
+       const uploadTaks = firebase.storage.ref(`/images/${uid}/${image.name}`)
+       .put(image)
+
+       await uploadTaks.on('state_changed', 
+       (snapshot)=>{
+           this.setState({alert: ''})
+            const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            )
+            this.setState({progress})
+       },
+       (error)=>{
+           console.log('Erro ao carregar a imagem: ' + error)
+       },
+       ()=>{
+           firebase.storage.ref(`/images/${uid}`)
+           .child(image.name).getDownloadURL()
+           .then(url=>{
+               this.setState({url})
+           })
+       }
+       )
+    }     
    
     render(){
         return(
              <div id='main-container'>
                  <form onSubmit={this.salvar} id='newForm'>
                      <span>{this.state.alert}</span>
-                     <label htmlFor='image'>Imagem</label>
-                     <input type='text' id='image' placeholder='url da imagem' autoFocus
-                       value={this.state.image} onChange={(e)=> this.setState({image: e.target.value})}/>
-
-
+                     
+                     <label >Imagem</label>
+                     <input className='imagem' type='file' onChange={this.newFile}/>
+                    
+                        { this.state.url !== ''
+                        ?
+                            <img src={this.state.url}  alt='imagem do post' />
+                              
+                        :
+                            <progress value={this.state.progress} max='100'/>
+                          
+                        }
+                       
                      <label htmlFor='titulo'>Título</label>
-                     <input type='text' id='titulo' placeholder='Título do Post'
+                     <input type='text' id='titulo' placeholder='Título do Post' autoFocus
                        value={this.state.titulo} onChange={(e)=> this.setState({titulo: e.target.value})}/>
 
                      <div className='main-edit'>
                         <label  >Descrição do Post</label>
-                        < Editor initialValue = "<p>Descrição do Post</p>"
+                        < Editor 
                             apiKey="s59yj03jzpitx6opcqosvi2hfhbb46tguq9zogwe2e3wvxfx"
+                            outputFormat= 'text'
                             init = {{                           
                                     height : 200 ,                             
                                     menubar : false , 
@@ -69,8 +126,8 @@ class NewPainel extends Component{
                                     'insertdatetime media table paste code help wordcount' ], 
                                     toolbar : 'undo redo | formatselect | bold italic backcolor |  alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
                                 }}
-                            value={this.state.descricao}
-                            onEditorChange ={(e) => this.setState({descricao: e.target.getContent()}) }
+                                value={this.state.descricao}
+                                onEditorChange = { this.handleEditorChange }
                            
                         /> 
                      </div>
